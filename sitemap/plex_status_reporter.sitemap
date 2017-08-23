@@ -1,0 +1,45 @@
+sitemap plex_status_reporter label="plex_status_reporter"
+
+/////////////////////////////////////////////////////
+{
+/////////////////////////////////////////////////////
+Frame label="PlexExampleFrame" {
+	
+
+Text label="Plex" icon="plex.png" {
+		////////////////////////////
+		// Currently Playing Details
+		////////////////////////////
+			Frame label="Currently Playing..." {
+			// Summary 
+			Text item=PlexTotal icon="plex.png"
+			Text item=PlexDirectPlay icon="scene_scene.png"
+			Text item=PlexTranscodeVideo icon="it_television.png"
+			Text item=PlexTranscodeAudio icon="audio_desync.png"
+			Text item=PlexTranscodeHwDecode icon="plex.png"
+			Text item=PlexTranscodeHwEncode icon="plex.png"
+			// iPhone5S Status
+			Text item=iPhone5STitle visibility=[iPhone5SStatus!="Stopped"]
+			Setpoint item=iPhone5SProgress minValue=0 maxValue=100 step=1 visibility=[iPhone5SStatus!="Stopped"]			
+			// Samsung TV Status
+			Text item=SamsungTVTitle visibility=[SamsungTVStatus!="Stopped"]
+			Setpoint item=SamsungTVProgress minValue=0 maxValue=100 step=1 visibility=[SamsungTVStatus!="Stopped"]				
+			//iPad Status			
+			Text item=iPadTitle visibility=[iPadStatus!="Stopped"]
+			Setpoint item=iPadProgress minValue=0 maxValue=100 step=1 visibility=[iPadStatus!="Stopped"]
+			//Brodie AppleTV Status			
+			Text item=BrodieAppleTVTitle visibility=[BrodieAppleTVStatus!="Stopped"]
+			Setpoint item=BrodieAppleTVProgress minValue=0 maxValue=100 step=1 visibility=[BrodieAppleTVStatus!="Stopped"]
+			//iPad Status			
+			Text item=DadiPadTitle visibility=[DadiPadStatus!="Stopped"]
+			Setpoint item=DadiPadProgress minValue=0 maxValue=100 step=1 visibility=[DadiPadStatus!="Stopped"]
+			}
+		
+
+			Frame label="TBD..." { 
+									   					Switch item=PlexCheck mappings=[ON="Start"]
+   			}		
+		}
+	}
+	}
+}

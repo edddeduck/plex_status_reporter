@@ -1,0 +1,36 @@
+rule "Plex"
+when
+    //Time cron "0 0 5,13 * * ?" or
+    //Time cron "0 0 * * * ?" or
+    // every 5 mins
+    Time cron "*/30 * * * * ?" or
+    Item PlexCheck received command ON
+then
+	executeCommandLine("wget -O /etc/openhab2/html/sessions.xml" + " http://[YOUR SERVER IP HERE]:32400/status/sessions")
+	var String PlexTranscodeVideoTemp = executeCommandLine("sh /etc/openhab2/html/plexTranscodeVideo.sh",1000)
+	var String PlexTranscodeAudioTemp = executeCommandLine("sh /etc/openhab2/html/plexTranscodeAudio.sh",1000)
+	var String PlexTotalTemp = executeCommandLine("sh /etc/openhab2/html/plexTotal.sh",1000)
+	var String PlexDirectPlayTemp = executeCommandLine("sh /etc/openhab2/html/plexDirectPlay.sh",1000)
+	var String PlexHwDecodeTemp = executeCommandLine("sh /etc/openhab2/html/plexTranscodeHwDecode.sh",1000)
+	var String PlexHwEncodeTemp = executeCommandLine("sh /etc/openhab2/html/plexTranscodeHwEncode.sh",1000)
+
+	PlexTranscodeHwEncode.postUpdate(PlexHwEncodeTemp)
+	PlexTranscodeHwDecode.postUpdate(PlexHwDecodeTemp)
+	PlexTranscodeVideo.postUpdate(PlexTranscodeVideoTemp)
+	PlexTranscodeAudio.postUpdate(PlexTranscodeAudioTemp)
+	PlexTotal.postUpdate(PlexTotalTemp)
+	PlexDirectPlay.postUpdate(PlexDirectPlayTemp)
+	
+	logInfo("Exec", "Number of transcodes Video:\n" + PlexTranscodeVideo)
+	logInfo("Exec", "Number of transcodes Audio:\n" + PlexTranscodeAudio)
+	logInfo("Exec", "Number of streams:\n" + PlexTotal)
+	logInfo("Exec", "Number of Directplay:\n" + PlexDirectPlay)
+	
+end
+
+rule "Telegram "
+when
+	Item PlexTotal changed
+then
+	sendTelegram("bot1", "Plex Total Streams: " + PlexTotal.state.toString + "\nTranscoding (V/A): " + PlexTranscodeVideo.state.toString + "/" + PlexTranscodeAudio.state.toString + "\nDirect Stream: " + PlexDirectPlay.state.toString + "\nHardware (Decode/Encode): " + PlexTranscodeHwDecode.state.toString + "/" + PlexTranscodeHwEncode.state.toString)
+end

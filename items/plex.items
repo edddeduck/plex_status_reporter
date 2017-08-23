@@ -1,0 +1,9 @@
+//Plex
+String 		PlexTranscodeHwDecode          "Hw Decoding Value [%s]"
+String 		PlexTranscodeHwEncode          "Hw Encoding Value [%s]"
+String 		PlexTranscodeVideo          "Transcode Video Value [%s]"
+String 		PlexTranscodeAudio          "Transcode Audio Value [%s]"
+String 		PlexTotal         "Total Plex Streams [%s]"
+String 		PlexDirectPlay          "Direct Play [%s]"
+String 		PlexSummary          "Plex [%s]"
+Switch      PlexCheck          "Start manually"
