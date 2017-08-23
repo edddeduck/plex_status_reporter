@@ -32,5 +32,5 @@ rule "Telegram "
 when
 	Item PlexTotal changed
 then
-	sendTelegram("bot1", "Plex Total Streams: " + PlexTotal.state.toString + "\nTranscoding (V/A): " + PlexTranscodeVideo.state.toString + "/" + PlexTranscodeAudio.state.toString + "\nDirect Stream: " + PlexDirectPlay.state.toString + "\nHardware (Decode/Encode): " + PlexTranscodeHwDecode.state.toString + "/" + PlexTranscodeHwEncode.state.toString)
+	sendTelegram("bot1", "Plex Total Streams: " + PlexTotal.state.toString + "\nSoftware Transcoding (V/A): " + PlexTranscodeVideo.state.toString + "/" + PlexTranscodeAudio.state.toString + "\nDirect Stream: " + PlexDirectPlay.state.toString + "\nHardware Transcoding (Decode/Encode): " + PlexTranscodeHwDecode.state.toString + "/" + PlexTranscodeHwEncode.state.toString)
 end
